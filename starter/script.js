@@ -365,3 +365,34 @@ ford.brake();
 ford.speedUs = 50;
 console.log(ford);
 */
+const person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+person.prototype.calcAge = function () {
+  console.log(2027 - this.birthYear);
+};
+
+// EXAMPLE 1: Do not do this..
+// const student = function (firstName, birthYear, course) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+//   this.course = course;
+// };
+
+/////////EXAMPLE 2: recommended
+const student = function (firstName, birthYear, course) {
+  //we use the call method to invoke the person object because,
+  //the call method allows a regular function call to enable 'this' on the function
+  // by defualt the this keyword point to undefined in a regular functio call
+  person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+student.prototype.introduce = function () {
+  console.log(`my name is ${this.firstName} and I study ${this.course}`);
+};
+const job = new student('Job', 2019, 'Accountancy');
+console.log(job);
+job.introduce();
